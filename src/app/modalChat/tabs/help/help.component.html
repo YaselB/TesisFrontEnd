@@ -1,0 +1,57 @@
+<div class="tab-content">
+  <!-- Vista principal de ayuda -->
+  <div *ngIf="!selectedHelpArticle" class="help-list-view">
+    <div class="help-search">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        placeholder="Buscar ayuda..." 
+        (keyup.enter)="searchHelp()"
+        (input)="searchHelp()" 
+      >
+      <button class="search-button" (click)="searchHelp()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="help-items-container">
+      <div *ngFor="let item of filteredHelpItems" class="help-item" (click)="selectHelpArticle(item)">
+        <div class="help-item-content">
+          <span class="help-item-title">{{ item.title }}</span>
+          <span class="help-item-arrow">›</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mensaje cuando no hay resultados -->
+    <div *ngIf="filteredHelpItems.length === 0" class="no-results">
+      <p>No se encontraron resultados para "{{ searchQuery }}"</p>
+    </div>
+  </div>
+  
+  <!-- Vista de artículo seleccionado -->
+  <div *ngIf="selectedHelpArticle" class="help-article-view">
+    <div class="article-header">
+      <div class="atras-foto">
+        <a href="#" (click)="backToHelpList(); $event.preventDefault()"><span>&lt;</span></a>
+      </div>
+      <div class="title">
+        <span>{{ selectedHelpArticle.title }}</span>
+      </div>
+    </div>
+    <div class="article-content">
+      <p>{{ selectedHelpArticle.content }}</p>
+
+      <!-- Subartículos, para el caso de las preguntas frecuentes -->
+      <div *ngIf="selectedHelpArticle?.Mcontent">
+        <div *ngFor="let subItem of selectedHelpArticle.Mcontent">
+          <h5>{{ subItem.title }}</h5>
+          <p>{{ subItem.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

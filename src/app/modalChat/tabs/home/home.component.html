@@ -1,0 +1,21 @@
+<div class="tab-content">
+  <div class="greeting">
+    <h1>Hola <span class="wave">👋</span></h1>
+    <h4>¿Cómo podemos ayudarte?</h4>
+  </div>
+  
+  <button class="chat-button" (click)="navigateToChat()">
+    <span>Envíanos un mensaje</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send">
+      <path d="m22 2-7 20-4-9-9-4Z"/>
+      <path d="M22 2 11 13"/>
+    </svg>
+  </button>
+  
+  <div class="topics">
+    <div class="topic" *ngFor="let topic of chatTopics" (click)="topic.title === 'Chat' ? navigateToChat() : navigateToFAQ()">
+      <h3>{{ topic.title }}</h3>
+      <p *ngIf="topic.description">{{ topic.description }}</p>
+    </div>
+  </div>
+</div>

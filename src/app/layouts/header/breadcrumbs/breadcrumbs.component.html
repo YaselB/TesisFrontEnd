@@ -1,0 +1,51 @@
+<div class="menu-breadcrumb">
+  <nz-breadcrumb nzSeparator="">
+    <nz-breadcrumb-item
+      style="background-color: black"
+      nz-dropdown
+      [nzDropdownMenu]="periodo"
+      nzTrigger="click"
+      *ngIf="periodoList.length > 0"
+      [style.background-color]="tipoList.length > 0 ? '#edeff0' : '#3c8dbc'"
+      ><a class="a-triangulo">{{ periodoCurrent }}</a></nz-breadcrumb-item
+    >
+    <nz-breadcrumb-item
+      nz-dropdown
+      [nzDropdownMenu]="tipo"
+      nzTrigger="click"
+      *ngIf="tipoList.length > 0"
+      [style.background-color]="menuList.length > 0 ? '#edeff0' : '#3c8dbc'"
+      ><a class="a-triangulo">{{ tipoCurrent }}</a></nz-breadcrumb-item
+    >
+    <nz-breadcrumb-item
+      nz-dropdown
+      [nzDropdownMenu]="menu"
+      nzTrigger="click"
+      *ngIf="menuList.length > 0"
+      [style.background-color]="'#3c8dbc'"
+      ><a class="a-triangulo-azul">{{ menuCurrent }}</a></nz-breadcrumb-item
+    >
+  </nz-breadcrumb>
+</div>
+
+<nz-dropdown-menu style="margin: 0" #periodo="nzDropdownMenu">
+  <ul nz-menu nzSelectable>
+    <li nz-menu-item *ngFor="let periodo of periodoList">
+      <a aria-hidden="true" (click)="ChangePeriodo(periodo)">{{
+        periodo.name
+      }}</a>
+    </li>
+  </ul> </nz-dropdown-menu
+><nz-dropdown-menu #tipo="nzDropdownMenu">
+  <ul nz-menu nzSelectable>
+    <li nz-menu-item *ngFor="let tipo of tipoList">
+      <a aria-hidden="true" (click)="ChangeTipo(tipo)">{{ tipo.name }}</a>
+    </li>
+  </ul> </nz-dropdown-menu
+><nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu nzSelectable>
+    <li nz-menu-item *ngFor="let menu of menuList">
+      <a aria-hidden="true" (click)="ChangeMenu(menu)">{{ menu.name }}</a>
+    </li>
+  </ul>
+</nz-dropdown-menu>

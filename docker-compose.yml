@@ -1,0 +1,18 @@
+version: '3.2'
+
+networks:
+  sigies_network:
+    external:
+      name: local_network
+
+services:
+  sigies-frontend:
+    container_name: sigies-frontend
+    image: docker.prod.uci.cu/fortes/sigies/sigies-new/sigies-frontend:1.0.0
+    restart: always
+    ports:
+      - 5001:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - sigies_network

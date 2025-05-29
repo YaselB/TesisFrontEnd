@@ -1,0 +1,42 @@
+<div *ngIf="owner" class="chat__conversation-board__message-container reversed">
+  <div class="chat__conversation-board__message__person">
+    <div class="chat__conversation-board__message__person__avatar">
+      <img src="assets/user2.svg" />
+    </div>
+    <span class="chat__conversation-board__message__person__nickname"
+      >Usuario</span
+    >
+  </div>
+  <div class="chat__conversation-board__message__context">
+    <div class="chat__conversation-board__message__bubble">
+      <span
+        [ngStyle]="{
+          'background-color': colorBackRight,
+          color: colorFontRight
+        }"
+        >{{ text }}</span
+      >
+    </div>
+  </div>
+</div>
+<div *ngIf="!owner" class="chat__conversation-board__message-container">
+  <div class="chat__conversation-board__message__person">
+    <div class="chat__conversation-board__message__person__avatar">
+      <img src="assets/bot2.png" />
+    </div>
+    <span class="chat__conversation-board__message__person__nickname">Bot</span>
+  </div>
+  <div class="chat__conversation-board__message__context">
+    <div class="chat__conversation-board__message__bubble">
+      <span
+        [ngStyle]="{
+          'background-color': colorBackLeft,
+          color: colorFontLeft
+        }"
+        [innerHTML]="text"
+      ></span>
+    </div>
+  </div>
+</div>
+<!-- 'background-color': messageError ? '#730404' : colorBackLeft,
+          color: messageError ? '#ffffff' : colorFontLeft -->

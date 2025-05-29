@@ -1,0 +1,24 @@
+nz-breadcrumb.ant-breadcrumb nz-breadcrumb-item {
+  padding: 0px 28px;
+  color: #2c3f4c;
+  border-color: #edeff0;
+}
+
+.menu-breadcrumb {
+  color: #ffffff;
+  padding: 0px 0px;
+}
+
+@media (max-width: 900px) {
+  .menu-breadcrumb {
+    grid-area: menu-breadcrumb;
+    margin: 2px 0px;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-breadcrumb {
+    grid-area: menu-breadcrumb;
+    margin: 2px 0px;
+  }
+}

@@ -1,0 +1,182 @@
+<!-- eslint-disable @angular-eslint/template/alt-text -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="d-flex justify-content-between align-items-start mb-3">
+  <div class="d-flex">
+    <div class="containerSession">
+      <div
+        class="d-flex justify-content-between align-items-start mb-3"
+        style="color: antiquewhite"
+      >
+        <span class="d-flex"><h3>Chats:</h3></span>
+        <span (click)="addSession()">
+          <img class="session-icon" src="assets/plus-circle.svg" />
+        </span>
+      </div>
+
+      <div
+        *ngFor="let session of sessions"
+        class="link"
+        [class.hover]="session.id === session_id"
+        [class.disabled]="{ enable }"
+      >
+        <div class="text">
+          <span
+            *ngIf="enable"
+            class="name_pointer"
+            (click)="showSession(session.id)"
+            >{{ session.name + ' ' }}
+          </span>
+          <span *ngIf="!enable" class="disabled">{{ session.name }}</span>
+
+          <span>
+            <img
+              (click)="openModifyDialog(session)"
+              class="session-icon"
+              src="assets/edit (1).svg"
+            />
+
+            <img
+              (click)="openDialog(session.id)"
+              class="session-icon"
+              src="assets/trash.svg"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="--dark-theme" id="chat">
+    <div class="chat__conversation-board scroll scroll-2">
+      <div *ngFor="let message of messages" class="message-container">
+        <app-message
+          class="message"
+          [text]="message.message_content"
+          [date]="message.date"
+          [colorBackRight]="colorBackRight"
+          [colorFontRight]="colorFontRight"
+          [colorBackLeft]="message.error ? '#730404' : colorBackLeft"
+          [colorFontLeft]="message.error ? '#ffffff' : colorFontLeft"
+          [owner]="message.userOwner"
+          [ngClass]="{
+            'left-message': !message.userOwner,
+            'right-message': message.userOwner
+          }"
+        ></app-message>
+      </div>
+    </div>
+    <div
+      *ngIf="!showCountdown; else elseBlock"
+      class="chat__conversation-panel shadow"
+    >
+      <div class="chat__conversation-panel__container">
+        <textarea
+          class="chat__conversation-panel__input panel-item scroll scroll-2"
+          [(ngModel)]="textInput"
+          placeholder="Escriba su duda relacionada con el sistema de ingreso"
+          (keyup)="onKey($event)"
+          maxlength="255"
+        ></textarea>
+        <!-- class="fa fa-paper-plane fa-2x input-send" -->
+        <i
+          class="chat__conversation-panel__button panel-item btn-icon send-message-button"
+          aria-hidden="true"
+          (click)="sendMessage()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            data-reactid="1036"
+          >
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </i>
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <div class="chat__conversation-panel">
+        <div class="chat__conversation-panel__container">
+          <textarea
+            class="chat__conversation-panel__input panel-item"
+            placeholder="{{ info }}"
+            disabled="true"
+          ></textarea>
+          <!-- class="fa fa-paper-plane fa-2x input-send" -->
+          <i aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              data-reactid="1036"
+            >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </i>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<dialog #dialog>
+  <h2>¿Seguro de Eliminar Chat?</h2>
+  <p>Tenga en cuenta que se borrarán todos los mensages ligados al chat.</p>
+  <button class="primary" (click)="closeDialog()" aria-label="close">
+    Cancelar
+  </button>
+  <button
+    class="primary"
+    (click)="deleteSession(session_id)"
+    aria-label="close"
+  >
+    Aceptar
+  </button>
+
+  <button (click)="closeDialog()" aria-label="close" class="x">❌</button>
+</dialog>
+
+<dialog #modify_dialog>
+  <h2>Cambiar Nombre.</h2>
+  <p>Modifique el nombre del chat según conveniencia.</p>
+  <form class="requires-validation" [formGroup]="messageForm" novalidate>
+    <input
+      #inputText
+      type="text"
+      formControlName="sessionName"
+      maxlength="20"
+      required
+    />
+    <div class="error-list" *ngIf="fc['sessionName'].errors && isSubmitted">
+      El nombre no debe estar vacío.
+    </div>
+    <p>(Esto no repercutirá en la conversación.)</p>
+
+    <button class="primary" (click)="closeModify_dialog()" aria-label="close">
+      Cancelar
+    </button>
+    <button class="primary" (click)="editSession()" aria-label="close">
+      Aceptar
+    </button>
+  </form>
+  <button (click)="closeModify_dialog()" aria-label="close" class="x">
+    ❌
+  </button>
+</dialog>

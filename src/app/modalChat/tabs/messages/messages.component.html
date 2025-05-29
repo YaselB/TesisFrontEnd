@@ -1,0 +1,40 @@
+<div class="tab-content">
+  <div class="header" *ngIf="activeChat !== 'Mensajes'">
+    <div class="atras-foto">
+      <a href="#" [class.active]="activeChat === 'Mensajes'" (click)="switchChat('Mensajes')"><span>&lt;</span></a>
+    </div>
+    <div class="title">
+      <span>{{activeChat}}</span>
+    </div>
+  </div>
+  
+  <!-- Lista de conversaciones -->
+  <div id="Mensajes" class="messages-list" [class.active]="activeChat === 'Mensajes'">
+    <h3 class="section-title">Tus conversaciones</h3>
+    
+    <div class="conversation-list">
+      <div class="conversation-item" [class.active]="activeChat === 'CHAT'" (click)="switchChat('CHAT')">
+        <div class="conversation-avatar">
+          <img src="../../../../assets/bot.png" alt="Avatar" />
+        </div>
+        <div class="conversation-info">
+          <h4 class="conversation-name">Asistente Virtual</h4>
+          <p class="conversation-preview">Haz clic para iniciar la conversación</p>
+        </div>
+        <span>&gt;</span>
+      </div>
+    </div>
+    
+    <div class="button-container">
+      <button class="boton-enviar" (click)="createNewChat()">Nueva Conversación 
+        <span class="new-conversation-icon"></span>
+      </button>
+    </div>
+  </div>
+
+  
+  <!-- Contenido del chat -->
+  <div id="chat" class="chat" [class.active]="activeChat === 'CHAT'">
+    <app-conversation (backToMessages)="switchChat($event)"></app-conversation>
+  </div>
+</div>

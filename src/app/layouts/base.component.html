@@ -1,0 +1,35 @@
+<nz-layout style="min-height: 100%">
+  <app-header (changeIsCollapsed)="isCollapsedLeftChange()"></app-header>
+
+  <nz-layout>
+    <nz-sider
+      nzCollapsible
+      nzWidth="250px"
+      nzBreakpoint="md"
+      [nzCollapsedWidth]="0"
+      [(nzCollapsed)]="isCollapsedLeft"
+    >
+      <app-menu-left></app-menu-left>
+
+      <div class="button-container">
+        <button class="noselect" [routerLink]="'conversationalAgent/'">
+          <img
+            src="../../../assets/bot2.png"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          />
+        </button>
+      </div>
+    </nz-sider>
+
+    <nz-content style="background-color: #edeff0">
+      <router-outlet></router-outlet>
+    </nz-content>
+
+    <!-- <nz-sider> -->
+    <!-- <app-menu-right [isCollapsed]="isCollapsedRight"></app-menu-right> -->
+    <!-- </nz-sider> -->
+  </nz-layout>
+  <app-footer></app-footer>
+</nz-layout>

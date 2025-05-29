@@ -1,0 +1,50 @@
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+    - .npm/
+
+staging_build_sigies-new-front:
+  stage: build
+  image: docker.prod.uci.cu/docker-all/docker:27.3.1
+  before_script:
+    - echo "Update CA Certificate"
+    - echo "Update CA Certificate"
+    # Cambia el archivo de repositorios para usar un mirror
+    - echo -e "http://mirrors.gigenet.com/alpinelinux/v3.9/main" > /etc/apk/repositories 
+    - apk update && apk add --no-cache curl wget ca-certificates || { echo "Failed to install packages"; exit 1;}
+    - wget -q -O /usr/local/share/ca-certificates/certificate.crt https://ftp.prod.uci.cu/pub/certs/ca.crt --no-check-certificate
+    - rm -rf /var/cache/apk/*
+    - update-ca-certificates --fresh > /dev/null
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    - docker rmi -f docker.prod.uci.cu/fortes/sigies/sigies-new/sigies-frontend:1.0.0 || true
+    - docker build --build-arg ENV=production -t docker.prod.uci.cu/fortes/sigies/sigies-new/sigies-frontend:1.0.0 .
+    - docker push docker.prod.uci.cu/fortes/sigies/sigies-new/sigies-frontend:1.0.0
+  only:
+    - development-stable
+
+
+staging_deploy_sigies-new-front:
+  stage: deploy
+  image: docker.prod.uci.cu/fortes/ak-base-image:1.0.0
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan 10.128.60.56 >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh ituser@10.128.60.56 "cd /var/www/html/FORTES/sigies-new-stacks/sigies/frontend/sigies-new-front/ && git reset --hard && git pull"
+    - ssh ituser@10.128.60.56 "sh /var/www/html/FORTES/sigies-new-stacks/sigies/frontend/scripts/staging_frontend_update.sh"
+  only:
+    - development-stable
+
+
+
+

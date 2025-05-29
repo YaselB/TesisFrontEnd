@@ -1,0 +1,65 @@
+<nz-card
+  [nzBordered]="false"
+  nzType="inner"
+  style="background-color: transparent"
+>
+  <nz-card-meta
+    class="menu-user"
+    [nzAvatar]="avatarTemplate"
+    [nzTitle]="this.username || 'Nombre de usuario'"
+  ></nz-card-meta>
+</nz-card>
+
+<ng-template #avatarTemplate>
+  <nz-avatar nzSrc="../../../assets/default-avatar.png"></nz-avatar>
+</ng-template>
+
+<nz-tabset style="border-bottom: 1px solid #444444; padding-bottom: 10px">
+  <!-- Tab generation -->
+  @for (tab of displayTabs; track tab.title) {
+    <nz-tab [nzTitle]="tab.title" *ngxPermissionsOnly="tab.permission">
+      <h4>{{ tab.name }}</h4>
+      <ul nz-menu nzMode="inline" nzTheme="dark">
+        @for (menuItem of tab.menus; track menuItem.name) {
+          <div *ngxPermissionsOnly="menuItem.permission">
+            @if (menuItem.menu_items.length > 0) {
+              <li
+                nz-submenu
+                [nzTitle]="menuItem.name"
+                [(nzOpen)]="menuItem.open"
+                (nzOpenChange)="clickSingle(tab.menus, menuItem)"
+                [nzDisabled]="menuItem.disabled"
+              >
+                <ul>
+                  @for (subItem of menuItem.menu_items; track subItem.name) {
+                    <li
+                      aria-disabled="true"
+                      nz-menu-item
+                      [nzDisabled]="!subItem.url"
+                      [routerLink]="
+                        tab.domain + '/' + menuItem.domain + '/' + subItem.url
+                      "
+                      [nzMatchRouter]="true"
+                      *ngxPermissionsOnly="subItem.permission"
+                    >
+                      {{ subItem.name }}
+                    </li>
+                  }
+                </ul>
+              </li>
+            } @else {
+              <li
+                aria-disabled="true"
+                nz-menu-item
+                [routerLink]="tab.domain + '/' + menuItem.domain"
+                [nzMatchRouter]="true"
+              >
+                {{ menuItem.name }}
+              </li>
+            }
+          </div>
+        }
+      </ul>
+    </nz-tab>
+  }
+</nz-tabset>

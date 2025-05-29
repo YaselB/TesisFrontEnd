@@ -1,0 +1,14 @@
+<nz-result
+  nzStatus="403"
+  nzTitle="403"
+  nzSubTitle="Lo sentimos, no estás autorizado para acceder a esta página."
+>
+  <div nz-result-extra>
+    <button nz-button routerLink="/" nzType="primary">
+      <span nz-icon nzType="home"></span>Ir al Inicio
+    </button>
+    <button nz-button (click)="goBack()" nzType="primary">
+      <span nz-icon nzType="rollback"></span>Volver
+    </button>
+  </div>
+</nz-result>

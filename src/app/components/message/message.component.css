@@ -1,0 +1,107 @@
+.chat__conversation-board__message-container.reversed {
+  flex-direction: row-reverse;
+}
+
+.chat__conversation-board__message-container.reversed
+  .chat__conversation-board__message__bubble {
+  position: relative;
+}
+
+.chat__conversation-board__message-container.reversed
+  .chat__conversation-board__message__bubble
+  span:not(:last-child) {
+  margin: 0 0 2em 0;
+}
+
+.chat__conversation-board__message-container.reversed
+  .chat__conversation-board__message__person {
+  margin: 0 0 0 1.2em;
+}
+
+.chat__conversation-board__message-container.reversed
+  .chat__conversation-board__message__options {
+  align-self: center;
+  position: absolute;
+  left: 0;
+  display: none;
+}
+.chat__conversation-board__message-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.chat__conversation-board__message-container:hover
+  .chat__conversation-board__message__options {
+  display: flex;
+  align-items: center;
+}
+
+.chat__conversation-board__message-container:hover
+  .option-item:not(:last-child) {
+  margin: 0 0.5em 0 0;
+}
+.chat__conversation-board__message-container:not(:last-child) {
+  margin: 0 0 2em 0;
+}
+
+.chat__conversation-board__message__person {
+  text-align: center;
+  margin: 0 1.2em 0 0;
+}
+.chat__conversation-board__message__person__avatar {
+  height: 35px;
+  width: 35px;
+  overflow: hidden;
+  border-radius: 50%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  ms-user-select: none;
+  position: relative;
+}
+.chat__conversation-board__message__person__avatar::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.chat__conversation-board__message__person__avatar img {
+  height: 100%;
+  width: auto;
+}
+.chat__conversation-board__message__person__nickname {
+  font-size: 9px;
+  color: #484848;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: none;
+}
+.chat__conversation-board__message__context {
+  max-width: 55%;
+  align-self: flex-end;
+}
+.chat__conversation-board__message__bubble span {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: inline-block;
+  word-wrap: break-word;
+  background: var(--chat-bubble-background);
+  color: var(--chat-text-color);
+  padding: 0.5em 0.8em;
+  line-height: 1.5;
+  border-radius: 6px;
+  font-family: 'Lato', sans-serif;
+  max-width: 300px;
+  overflow-wrap: break-word;
+}
+.chat__conversation-board__message__bubble:not(:last-child) {
+  margin: 0 0 0.3em;
+}
+.chat__conversation-board__message__bubble:active {
+  background: var(--chat-bubble-active-background);
+}

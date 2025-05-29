@@ -1,0 +1,48 @@
+<div nzAlign="top" class="login-box">
+  <div nz-col class="login-logo">
+    <img nz-image src="../../../assets/sigies.png" alt="Logo de Xauce SIGIES" />
+  </div>
+  <nz-card nz-col nzTitle="Iniciar sesión">
+    <!-- [formGroup]=""  (ngSubmit)="" -->
+    <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzSuffixIcon="mail">
+            <input
+              type="text"
+              nz-input
+              formControlName="email"
+              required="required"
+              placeholder="Correo electrónico"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzSuffixIcon="lock">
+            <input
+              type="password"
+              nz-input
+              formControlName="password"
+              required="required"
+              placeholder="Contraseña"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row style="justify-content: space-between">
+        <div nz-col [nzSpan]="12">
+          <!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
+          <label nz-checkbox formControlName="">
+            <span>Recordar</span>
+          </label>
+        </div>
+        <button nz-button [nzType]="'primary'" type="submit">Entrar</button>
+        <div nz-row>
+          <a [routerLink]="recoverPassword">¿Ha olvidado su contraseña?</a>
+        </div>
+      </div>
+    </form>
+  </nz-card>
+</div>

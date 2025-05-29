@@ -1,0 +1,141 @@
+.tab-content {
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.help-search {
+  position: relative;
+  margin-bottom: 15px;
+  background-color: #0a102a;
+  border-radius: 24px;
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 16px;
+  }
+  
+  .search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 8px 0;
+    font-size: 0.95rem;
+    width: 100%;
+    
+    &:focus {
+      outline: none;
+    }
+    
+    &::placeholder {
+      color: #b0b0b0;
+    }
+  }
+  
+  .search-icon {
+    color: #0099ff;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    cursor: pointer;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.help-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+  }
+}
+
+.help-item {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.help-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.help-item-title {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.help-item-arrow {
+  color: #0099ff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.article-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  
+  .atras-foto {
+    margin-right: 15px;
+    
+    a {
+      text-decoration: none;
+      color: #0099ff;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+}
+
+.article-content {
+  color: #e0e0e0;
+  line-height: 1.6;
+  padding: 0 10px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 20px;
+  color: #b0b0b0;
+  font-style: italic;
+}
+
+.help-list-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
