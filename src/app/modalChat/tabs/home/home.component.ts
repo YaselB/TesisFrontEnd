@@ -15,6 +15,7 @@ import { HelpTabComponent } from "../help/help.component";
 export class HomeTabComponent {
   @Output() navigateToChatTab = new EventEmitter<void>();
   @Output() navigateToHelpArticle = new EventEmitter<number>();
+  
 
   navigateToChat(): void {
     this.navigateToChatTab.emit();
